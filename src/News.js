@@ -53,7 +53,7 @@ export default class App extends Component {
        <h3 className="my-4">Today's HeadLines</h3>
        <div className="row">
         {this.state.articles.map((element)=>{
-         return <div className="col-md-4" key="url">
+         return <div className="col-md-4" key={this.state.articles.url}>
          <Newsitem title={element.title} imgUrl={element.urlToImage} description={element.description} newsUrl={element.url} />
         </div>
        })}
