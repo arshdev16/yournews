@@ -23,27 +23,39 @@ export default class App extends Component {
       page: 1
     }
   }
+  
+  
   onPrev = async ()=>{
-     let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=ffe09bf15bcc42d9a95d847238847551&pageSize=${this.props.newsPerPage}&page=${this.state.page - 1}`;
+    this.props.setProgress(15)
+      let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=ffe09bf15bcc42d9a95d847238847551&pageSize=${this.props.newsPerPage}&page=${this.state.page - 1}`;
      let data = await fetch(url);
+     this.props.setProgress(35)
      let parsedData = await data.json();
-     this.setState({page:this.state.page -1 ,articles: parsedData.articles, loading:false})
+     this.props.setProgress(75)
+     this.setState({page: this.state.page - 1,articles: parsedData.articles, total: parsedData.totalResults})
+     this.props.setProgress(100)
   }
   
   onNext = async ()=>{
-
+    this.props.setProgress(15)
      let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=ffe09bf15bcc42d9a95d847238847551&pageSize=${this.props.newsPerPage}&page=${this.state.page + 1}`;
      let data = await fetch(url);
+     this.props.setProgress(35)
      let parsedData = await data.json();
-     this.setState({page: this.state.page + 1,articles: parsedData.articles, loading:false})
-    
+     this.props.setProgress(75)
+     this.setState({page: this.state.page + 1,articles: parsedData.articles, total: parsedData.totalResults})
+     this.props.setProgress(100)
   }
   
   async componentDidMount(){
+    this.props.setProgress(15)
      let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=ffe09bf15bcc42d9a95d847238847551&pageSize=${this.props.newsPerPage}&page=1`;
      let data = await fetch(url);
+     this.props.setProgress(35)
      let parsedData = await data.json();
+     this.props.setProgress(75)
      this.setState({articles: parsedData.articles, total: parsedData.totalResults})
+     this.props.setProgress(100)
    }
   
  render() {
