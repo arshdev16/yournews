@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar.js';
 import News from './News.js';
 import LoadingBar from 'react-top-loading-bar';
@@ -8,33 +8,29 @@ import {
   Route
 } from "react-router-dom";
 
-export default class App extends Component {
+const App = () =>{
 
- state = {
-   progress: 0
- }
- setProgress = (progress)  =>{
-   this.setState({progress:progress})
- }
+ const[progress,setProgress] = useState(0);
  
-  render() {
+ 
     return(
       <>
         <Router>
-        <LoadingBar color='#f11946' progress={this.state.progress}/>
+        <LoadingBar color='#f11946' progress={progress}/>
         <Navbar />
         <Switch>
-        <Route key="general" exact path="/"><News setProgress={this.setProgress} category="general"/></Route>
-        <Route key="business" exact path="/business"><News setProgress={this.setProgress} category="business"/></Route>
-        <Route key="entertainment" exact path="/entertainment"><News setProgress={this.setProgress} category="entertainment"/></Route>
-        <Route key="health" exact path="/health"><News setProgress={this.setProgress} category="health"/></Route>
-        <Route key="science" exact path="/science"><News setProgress={this.setProgress} category="science"/></Route>
-        <Route key="sports" exact path="/sports"><News setProgress={this.setProgress} category="sports"/></Route>
-        <Route key="technology" exact path="/technology"><News setProgress={this.setProgress} category="technology"/></Route>
+        <Route key="general" exact path="/"><News setProgress={setProgress} category="general"/></Route>
+        <Route key="business" exact path="/business"><News setProgress={setProgress} category="business"/></Route>
+        <Route key="entertainment" exact path="/entertainment"><News setProgress={setProgress} category="entertainment"/></Route>
+        <Route key="health" exact path="/health"><News setProgress={setProgress} category="health"/></Route>
+        <Route key="science" exact path="/science"><News setProgress={setProgress} category="science"/></Route>
+        <Route key="sports" exact path="/sports"><News setProgress={setProgress} category="sports"/></Route>
+        <Route key="technology" exact path="/technology"><News setProgress={setProgress} category="technology"/></Route>
         </Switch>
     </Router>
     
       </>
     )
-  }
 }
+
+export default App;
